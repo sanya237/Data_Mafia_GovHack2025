@@ -16,12 +16,6 @@ Built with:
 
 ## 📸 **Screenshots**
 
-> Place the screenshot PNGs inside:
-
-```
-public/screenshots/
-```
-
 ### **Smart Questions Flow**
 
 #### 1. Home/Suburb Input
