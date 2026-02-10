@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Data Genie — ABS Dataset Wizard</title>
+  <meta name="description" content="Like Akinator, but for ABS datasets." />
+
+  <!-- Tailwind CDN (simple + works on GitHub Pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="Data Genie — ABS Dataset Wizard" />
+  <meta property="og:description" content="Like Akinator, but for ABS datasets." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* Gentle blue radial gradient background */
+    body {
+      background: radial-gradient(1200px 600px at 50% 20%, rgba(255,255,255,0.08), transparent 60%),
+                  linear-gradient(180deg, #1e40af 0%, #2563eb 40%, #1d4ed8 100%);
+      min-height: 100vh;
+    }
+    /* Smooth focus ring for inputs/buttons */
+    .focus-ring:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(99,102,241,.35);
+    }
+  </style>
+</head>
+<body class="text-white/90 antialiased">
+  <!-- Top nav -->
+  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div class="flex items-center justify-between">
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+          <span class="text-xl">✨</span>
+        </div>
+        <div>
+          <div class="text-xl font-semibold tracking-tight">Data Genie</div>
+          <div class="inline-flex items-center text-xs mt-1 px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
+            ABS Dataset Wizard
+          </div>
+        </div>
+      </div>
+
+      <!-- Right nav -->
+      <nav class="flex items-center gap-6 text-sm">
+        <a href="#" class="hover:text-white transition">About</a>
+        <a href="#" class="hover:text-white transition">Datasets</a>
+        <a href="#" class="hover:text-white transition">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="rounded-3xl bg-white/5 border border-white/10 p-8 sm:p-10 backdrop-blur">
+      <h1 class="text-center text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+        <span class="align-middle">Data Genie</span>
+      </h1>
+      <p class="mt-4 text-center text-lg sm:text-xl text-white/90">
+        Like Akinator, but for ABS datasets
+      </p>
+      <p class="mt-4 text-center text-base text-white/80 max-w-3xl mx-auto">
+        Describe your real-world problem and I’ll ask smart questions to recommend the
+        perfect dataset combinations with join guidance, previews, and code snippets.
+      </p>
+
+      <!-- Input card -->
+      <div class="mt-10">
+        <div class="mx-auto max-w-3xl">
+          <label class="sr-only" for="problem">Problem</label>
+          <div class="rounded-2xl bg-white/10 border border-white/15 p-3">
+            <input
+              id="problem"
+              type="text"
+              class="w-full rounded-xl bg-white/90 text-gray-900 placeholder-gray-500 px-4 py-3 focus-ring"
+              placeholder="Describe your problem (e.g., 'Open a repair shop in Brunswick'). The Genie will ask 2–3 smart questions, then draft"
+            />
+          </div>
+
+          <button
+            id="askBtn"
+            class="mt-4 w-full sm:w-auto mx-auto block rounded-xl bg-white text-gray-900 font-semibold px-6 py-3 hover:bg-white/90 transition focus-ring"
+          >
+            Ask the Genie →
+          </button>
+        </div>
+
+        <!-- Result placeholder (non-functional demo) -->
+        <div id="result" class="hidden mt-6 text-center text-sm text-white/80"></div>
+      </div>
+
+      <!-- Example problems -->
+      <div class="mt-10">
+        <div class="text-white/80 text-sm mb-3">Example problems:</div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <button class="rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-left hover:bg-white/15 transition example">
+            "I want to open a mobile repair and accessory store"
+          </button>
+          <button class="rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-left hover:bg-white/15 transition example">
+            "I want to buy a property near a train station"
+          </button>
+          <button class="rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-left hover:bg-white/15 transition example">
+            "I want to put my kid in a new school"
+          </button>
+          <button class="rounded-xl px-4 py-3 bg-white/10 border border-white/15 text-left hover:bg-white/15 transition example">
+            "I need to analyze market opportunities for seniors"
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-white/60 text-sm">
+    © <span id="year"></span> Data Genie
+  </footer>
+
+  <script>
+    // Tiny demo behavior (no backend)
+    const input = document.getElementById('problem');
+    const askBtn = document.getElementById('askBtn');
+    const result = document.getElementById('result');
+    const examples = document.querySelectorAll('.example');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    examples.forEach(btn => btn.addEventListener('click', () => {
+      input.value = btn.textContent.replaceAll('"','').trim();
+      input.focus();
+    }));
+
+    function showMock() {
+      result.classList.remove('hidden');
+      result.textContent = "✨ The Genie would now ask a couple of smart questions and propose ABS dataset combos (demo placeholder).";
+    }
+    askBtn.addEventListener('click', showMock);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') showMock(); });
+  </script>
+</body>
+</html>
